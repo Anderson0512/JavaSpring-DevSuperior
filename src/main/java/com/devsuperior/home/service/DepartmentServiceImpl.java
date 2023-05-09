@@ -5,9 +5,7 @@ import com.devsuperior.home.model.dto.DepartmentResponseDTO;
 import com.devsuperior.home.model.mapper.DepartmentResponseMapper;
 import com.devsuperior.home.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {

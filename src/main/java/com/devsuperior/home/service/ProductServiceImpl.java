@@ -6,6 +6,7 @@ import com.devsuperior.home.model.dto.ProductListDTO;
 import com.devsuperior.home.model.dto.ProductRequestDTO;
 import com.devsuperior.home.model.mapper.ProductListResponseMapper;
 import com.devsuperior.home.model.mapper.ProductRequestMapper;
+import com.devsuperior.home.model.mapper.ProductRequestUpdateMapper;
 import com.devsuperior.home.model.mapper.ProductResponseMapper;
 import com.devsuperior.home.model.vo.ProductVO;
 import com.devsuperior.home.repository.DepartmentRepository;
@@ -34,6 +35,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
+    public ProductVO updateProduct(Long id, ProductRequestDTO requestDTO) {
+        var dp = departmentRepository.findById(requestDTO.getDepartment()).orElseThrow();
+        var upProduct = productRepository.findById(id).orElseThrow();
+        var product = new ProductRequestUpdateMapper().getProduct(requestDTO,dp, upProduct);
+        return new ProductResponseMapper(productRepository.save(product)).getProductVO();
+    }
+
+    @Override
     public ProductListDTO getListProduct() {
         List<Product> list = productRepository.findAll();
         return new ProductListResponseMapper(list).getProductListDTO();
@@ -43,5 +52,10 @@ public class ProductServiceImpl implements ProductService{
     public ProductVO getProduct(Long id) {
         Product product = productRepository.findById(id).orElseThrow();
         return new ProductResponseMapper(product).getProductVO();
+    }
+    @Override
+    public void deleteById(Long id) {
+        var product = productRepository.findById(id).orElseThrow();
+        productRepository.delete(product);
     }
 }

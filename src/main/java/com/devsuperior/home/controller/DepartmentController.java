@@ -21,6 +21,7 @@ public class DepartmentController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Department save(@RequestBody Department department){
         return departmentService.create(department);
     }
@@ -31,6 +32,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Department putById(@PathVariable Long id, @RequestParam String name){
         return departmentService.putById(id, name);
     }
