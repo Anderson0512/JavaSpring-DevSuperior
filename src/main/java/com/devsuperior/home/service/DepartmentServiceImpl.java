@@ -5,9 +5,10 @@ import com.devsuperior.home.model.dto.DepartmentResponseDTO;
 import com.devsuperior.home.model.mapper.DepartmentResponseMapper;
 import com.devsuperior.home.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.List;
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
@@ -22,5 +23,22 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department create(Department name) {
         return departmentRepository.save(name);
+    }
+
+    @Override
+    public Department getById(Long id) {
+        return departmentRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public Department putById(Long id, String name) {
+        Department dp = departmentRepository.findById(id).orElseThrow();
+        dp.setName(name);
+        return departmentRepository.save(dp);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        departmentRepository.delete(departmentRepository.findById(id).orElseThrow());
     }
 }
