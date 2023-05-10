@@ -1,6 +1,7 @@
 package com.devsuperior.home.model.mapper;
 
 import com.devsuperior.home.entities.Product;
+import com.devsuperior.home.model.dto.Pageable;
 import com.devsuperior.home.model.dto.ProductListDTO;
 import com.devsuperior.home.model.vo.ProductVO;
 
@@ -24,6 +25,7 @@ public class ProductListResponseMapper {
             productVOList.add(productVO);
         }
         productListDTO.setProductVOList(productVOList);
+        productListDTO.setValuesPageable(productVOList);
     }
 
     public ProductListDTO getProductListDTO() {

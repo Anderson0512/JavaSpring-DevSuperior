@@ -11,13 +11,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DepartmentResponseDTO implements Serializable {
+public class DepartmentResponseDTO extends BaseListBFFResponse implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("_pageable")
-    private SimplePageable pageable = new SimplePageable();
     @JsonProperty("_content")
     private transient List<Department> content;
 }

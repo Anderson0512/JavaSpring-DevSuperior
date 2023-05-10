@@ -23,6 +23,7 @@ public class DepartmentResponseMapper {
             content.add(dp);
         }
         responseDTO.setContent(content);
+        responseDTO.setValuesPageable(content);
     }
 
     public DepartmentResponseDTO getResponseDTO() {
