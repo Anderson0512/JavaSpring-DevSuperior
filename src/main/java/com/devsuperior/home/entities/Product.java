@@ -2,7 +2,6 @@ package com.devsuperior.home.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,9 +23,9 @@ public class Product {
     private Department department;
 
     public Product(Long id,Department department, String name, Double price) {
-        this.setId(id);
-        this.setDepartment(department);
-        this.setName(name);
-        this.setPrice(price);
+        this.id = id;
+        this.department = department;
+        this.name = name;
+        this.price = price;
     }
 }

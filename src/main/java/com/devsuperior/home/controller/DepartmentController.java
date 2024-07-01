@@ -7,39 +7,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/department")
 public class DepartmentController {
 
-    @Autowired
-    private DepartmentService departmentService;
+  private final DepartmentService departmentService;
 
-    @GetMapping
-    public DepartmentResponseDTO getDepartment(){
-        return departmentService.getDepartments();
-    }
+  @Autowired
+  public DepartmentController(DepartmentService departmentService) {
+    this.departmentService = departmentService;
+  }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Department save(@RequestBody Department department){
-        return departmentService.create(department);
-    }
+  @GetMapping
+  public DepartmentResponseDTO getDepartment() {
+    return departmentService.getDepartments();
+  }
 
-    @GetMapping("/{id}")
-    public Department getById(@PathVariable Long id){
-        return departmentService.getById(id);
-    }
+  @PostMapping
+  public ResponseEntity<Department> save(@RequestBody Department department) {
+    var depCreate = departmentService.create(department);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+            .path("/{id}").buildAndExpand(depCreate.getId()).toUri();
+    return ResponseEntity.created(uri).body(depCreate);
+  }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Department putById(@PathVariable Long id, @RequestParam String name){
-        return departmentService.putById(id, name);
-    }
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.MULTI_STATUS)
-    public String deleteById(@PathVariable Long id){
-        departmentService.deleteById(id);
-        return ResponseEntity.status(204).body("Dados apagados do id " + id).getBody();
-    }
+  @GetMapping("/{id}")
+  public Department getById(@PathVariable Long id) {
+    return departmentService.getById(id);
+  }
+
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Department putById(@PathVariable Long id, @RequestParam String name) {
+    return departmentService.putById(id, name);
+  }
+
+  @DeleteMapping("/{id}")
+  public String deleteById(@PathVariable Long id) {
+    departmentService.deleteById(id);
+    return ResponseEntity.status(204).body("Dados apagados do id " + id).getBody();
+  }
 }

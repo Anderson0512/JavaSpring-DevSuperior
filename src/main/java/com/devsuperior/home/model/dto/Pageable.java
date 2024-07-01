@@ -1,10 +1,12 @@
 package com.devsuperior.home.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@Getter
 public class Pageable implements Serializable {
     @Serial
     private static final long serialVersionUID = -753749465559432781L;
@@ -34,31 +36,7 @@ public class Pageable implements Serializable {
         this.totalElements = 0;
     }
 
-    public Integer getLimit() {
-        return this.limit;
-    }
-
-    public Integer getOffset() {
-        return this.offset;
-    }
-
-    public Integer getPageNumber() {
-        return this.pageNumber;
-    }
-
-    public Integer getPageElements() {
-        return this.pageElements;
-    }
-
-    public Integer getTotalPages() {
-        return this.totalPages;
-    }
-
-    public Integer getTotalElements() {
-        return this.totalElements;
-    }
-
-    @JsonProperty("_limit")
+  @JsonProperty("_limit")
     public void setLimit(Integer limit) {
         this.limit = limit;
     }
